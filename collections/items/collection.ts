@@ -1,7 +1,7 @@
-import { collection } from "$collections/_collection.ts";
+import { collection } from "$db/collection.ts";
 import { BaseDocument, Cost, Damage, Source } from "$collections/_common.ts";
 import { entries } from "$data/items/entries.ts";
-import { manyResolver, oneResolver } from "$collections/_resolvers.ts";
+import { manyResolver, oneResolver } from "$graphql/resolvers.ts";
 import { AbilityScore } from "$collections/abilityScores.ts";
 import { WeaponMastery } from "$collections/weaponMasteries.ts";
 

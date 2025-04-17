@@ -1,6 +1,6 @@
-import { collection } from "$collections/_collection.ts";
+import { collection } from "$db/collection.ts";
 import { BaseDocument } from "$collections/_common.ts";
-import { manyResolver, oneResolver } from "$collections/_resolvers.ts";
+import { manyResolver, oneResolver } from "$graphql/resolvers.ts";
 
 export const ID = "sourceBooks";
 

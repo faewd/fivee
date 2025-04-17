@@ -9,7 +9,7 @@ example):
 
 ```ts
 import { ResolverContext } from "$graphql/context.ts";
-import { collection } from "$collections/_collection.ts";
+import { collection } from "$db/collection.ts";
 import { BaseDocument } from "$collections/_common.ts";
 
 export const ID = "mushrooms";

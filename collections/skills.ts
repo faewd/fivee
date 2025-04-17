@@ -1,8 +1,8 @@
-import { collection } from "$collections/_collection.ts";
+import { collection } from "$db/collection.ts";
 import { BaseDocument, Source } from "$collections/_common.ts";
 import { AbilityScore } from "$collections/abilityScores.ts";
 import { md, ref, source } from "$helpers";
-import { manyResolver, oneResolver } from "$collections/_resolvers.ts";
+import { manyResolver, oneResolver } from "$graphql/resolvers.ts";
 
 export const ID = "skills";
 

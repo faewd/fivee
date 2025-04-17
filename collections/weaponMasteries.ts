@@ -1,6 +1,6 @@
-import { collection } from "$collections/_collection.ts";
+import { collection } from "$db/collection.ts";
 import { BaseDocument, Source } from "$collections/_common.ts";
-import { manyResolver, oneResolver } from "$collections/_resolvers.ts";
+import { manyResolver, oneResolver } from "$graphql/resolvers.ts";
 import { entries } from "$data/weaponMasteries/entries.ts";
 
 export const ID = "weaponMasteries";

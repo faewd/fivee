@@ -1,9 +1,9 @@
-import { collection } from "$collections/_collection.ts";
+import { collection } from "$db/collection.ts";
 import { BaseDocument, Cost, Range, Source } from "$collections/_common.ts";
 import { MagicSchool } from "$collections/magicSchools.ts";
 import { AbilityScore } from "$collections/abilityScores.ts";
 import { DamageType } from "$collections/damageTypes.ts";
-import { manyResolver, oneResolver } from "$collections/_resolvers.ts";
+import { manyResolver, oneResolver } from "$graphql/resolvers.ts";
 import { entries } from "$data/spells/entries.ts";
 
 export const ID = "spells";
