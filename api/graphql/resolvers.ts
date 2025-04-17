@@ -1,14 +1,15 @@
-import { collections } from "$collections/_index.ts";
-import merge from "npm:lodash.merge";
-
-export const resolvers = merge(
-  {},
-  ...Object.values(collections).map((col) => col.resolvers),
-);
-
 import { ResolverContext } from "$graphql/context.ts";
 import { parseTextFields } from "$exprs/parser.ts";
 import { CollectionID, Document } from "$collections/_index.ts";
+import { collections } from "$collections/_index.ts";
+import merge from "npm:lodash.merge";
+
+export function getResolvers() {
+  return merge(
+    {},
+    ...Object.values(collections).map((col) => col.resolvers),
+  );
+}
 
 interface OneResolverArgs {
   id: string;
@@ -28,15 +29,23 @@ export function oneResolver<T extends Document>(collectionId: CollectionID) {
   };
 }
 
-export function manyResolver<T extends Document>(collectionId: CollectionID) {
+interface ManyResolverArgs {
+  expressions?: boolean;
+}
+
+export function manyResolver<T extends Document>(
+  collectionId: CollectionID,
+) {
   return async function (
     _: unknown,
-    _args: never,
+    { expressions }: ManyResolverArgs,
     { db }: ResolverContext,
   ): Promise<T[]> {
     const docs = await db.list<T>(collectionId);
     return Promise.all(
-      docs.map((doc) => parseTextFields(doc, { mode: "text" })),
+      docs.map((doc) =>
+        expressions ? doc : parseTextFields(doc, { mode: "text" })
+      ),
     );
   };
 }
