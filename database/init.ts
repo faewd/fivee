@@ -22,7 +22,7 @@ if (DENO_KV_URL !== undefined) {
 } else {
   console.log(`Using local Deno KV`);
 }
-const kv = await Deno.openKv(DENO_KV_URL);
+const kv = await Deno.openKv(DENO_KV_URL || undefined);
 console.log("Connected.");
 
 // Compile the data
