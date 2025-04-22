@@ -13,7 +13,7 @@ const config = {
   favicon: "/docs/img/favicon.svg",
   url: "https://fivee.co",
   baseUrl: "/docs/",
-  organizationName: "fergcb",
+  organizationName: "faew.dev",
   projectName: "fivee",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -30,7 +30,7 @@ const config = {
         docs: {
           routeBasePath: "/",
           sidebarPath: "./sidebars.js",
-          editUrl: "https://github.com/fergcb/fivee/tree/main/docs",
+          editUrl: "https://github.com/faewd/fivee/tree/main/docs",
         },
         theme: {
           customCss: "./src/css/custom.css",
@@ -66,7 +66,7 @@ const config = {
             label: "Snippets",
           },
           {
-            href: "https://github.com/fergcb/fivee",
+            href: "https://github.com/faewd/fivee",
             label: "GitHub",
             position: "right",
           },
@@ -89,20 +89,11 @@ const config = {
             ],
           },
           {
-            title: "Community",
-            items: [
-              {
-                label: "Discord",
-                href: "https://discord.gg/cVkQhm9QFm",
-              },
-            ],
-          },
-          {
             title: "More",
             items: [
               {
                 label: "GitHub",
-                href: "https://github.com/fergcb/fivee",
+                href: "https://github.com/faewd/fivee",
               },
             ],
           },
