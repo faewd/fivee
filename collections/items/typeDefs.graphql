@@ -178,8 +178,3 @@ type PackItem implements Item {
   source: Source!
   contents: [ItemWithQuantity!]!
 }
-
-extend type Query {
-  items: [Item]
-  item(id: String!, expressions: Boolean): Item
-}

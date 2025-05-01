@@ -2,7 +2,6 @@ import { collection } from "$db/collection.ts";
 import { BaseDocument, Source } from "$collections/_common.ts";
 import { Skill } from "$collections/skills.ts";
 import { md, query, source } from "$helpers";
-import { manyResolver, oneResolver } from "$graphql/resolvers.ts";
 
 export const ID = "abilityScores";
 
@@ -22,7 +21,8 @@ export interface AbilityScore extends BaseDocument {
  */
 
 export default collection<AbilityScore>({
-  id: ID,
+  id: "abilityScores",
+  docType: "abilityScore",
   typeDefs: `#graphql
     type AbilityScore {
       id: String!
@@ -38,12 +38,6 @@ export default collection<AbilityScore>({
       abilityScore(id: String!): AbilityScore
     }
   `,
-  resolvers: {
-    Query: {
-      abilityScore: oneResolver<AbilityScore>(ID),
-      abilityScores: manyResolver<AbilityScore>(ID),
-    },
-  },
   entries: [
     {
       id: "cha",

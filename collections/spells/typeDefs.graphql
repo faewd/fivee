@@ -82,6 +82,6 @@ type Spell {
 }
 
 extend type Query {
-  spells: [Spell]
+  spells(expressions: Boolean): [Spell]
   spell(id: String!, expressions: Boolean): Spell
 }

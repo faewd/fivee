@@ -31,21 +31,25 @@ export function oneResolver<T extends Document>(collectionId: CollectionID) {
 
 interface ManyResolverArgs {
   expressions?: boolean;
+  filters: Record<string, any>;
 }
 
 export function manyResolver<T extends Document>(
   collectionId: CollectionID,
+  filterFunc: (doc: T, filterValues: Record<string, any>) => boolean,
 ) {
   return async function (
     _: unknown,
-    { expressions }: ManyResolverArgs,
+    { expressions, filters }: ManyResolverArgs,
     { db }: ResolverContext,
   ): Promise<T[]> {
     const docs = await db.list<T>(collectionId);
     return Promise.all(
-      docs.map((doc) =>
-        expressions ? doc : parseTextFields(doc, { mode: "text" })
-      ),
+      docs
+        .filter((doc) => filterFunc(doc, filters))
+        .map((doc) =>
+          expressions ? doc : parseTextFields(doc, { mode: "text" })
+        ),
     );
   };
 }

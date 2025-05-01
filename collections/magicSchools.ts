@@ -1,9 +1,6 @@
 import { collection } from "$db/collection.ts";
 import { BaseDocument, Source } from "$collections/_common.ts";
 import { entries } from "$data/magicSchools/entries.ts";
-import { manyResolver, oneResolver } from "$graphql/resolvers.ts";
-
-export const ID = "magicSchools";
 
 /*
  * TypeScript Types
@@ -19,7 +16,8 @@ export interface MagicSchool extends BaseDocument {
  */
 
 export default collection<MagicSchool>({
-  id: ID,
+  id: "magicSchools",
+  docType: "magicSchool",
   entries,
   typeDefs: `#graphql
     type MagicSchool {
@@ -34,10 +32,4 @@ export default collection<MagicSchool>({
       magicSchool(id: String!): MagicSchool
     }
   `,
-  resolvers: {
-    Query: {
-      magicSchool: oneResolver<MagicSchool>(ID),
-      magicSchools: manyResolver<MagicSchool>(ID),
-    },
-  },
 });

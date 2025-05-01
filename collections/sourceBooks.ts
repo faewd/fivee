@@ -1,14 +1,10 @@
 import { collection } from "$db/collection.ts";
 import { BaseDocument } from "$collections/_common.ts";
-import { manyResolver, oneResolver } from "$graphql/resolvers.ts";
-
-export const ID = "sourceBooks";
 
 /*
  * TypeScript Types
  */
 
-// deno-lint-ignore no-empty-interface
 export interface SourceBook extends BaseDocument {}
 
 /*
@@ -16,7 +12,8 @@ export interface SourceBook extends BaseDocument {}
  */
 
 export default collection<SourceBook>({
-  id: ID,
+  id: "sourceBooks",
+  docType: "sourceBook",
   typeDefs: `#graphql
     type SourceBook {
       id: String!
@@ -28,12 +25,6 @@ export default collection<SourceBook>({
       sourceBook(id: String!): SourceBook
     }
   `,
-  resolvers: {
-    Query: {
-      sourceBook: oneResolver<SourceBook>(ID),
-      sourceBooks: manyResolver<SourceBook>(ID),
-    },
-  },
   entries: [
     {
       id: "PHB",

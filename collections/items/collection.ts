@@ -1,11 +1,15 @@
 import { collection } from "$db/collection.ts";
 import { BaseDocument, Cost, Damage, Source } from "$collections/_common.ts";
 import { entries } from "$data/items/entries.ts";
-import { manyResolver, oneResolver } from "$graphql/resolvers.ts";
 import { AbilityScore } from "$collections/abilityScores.ts";
 import { WeaponMastery } from "$collections/weaponMasteries.ts";
-
-export const ID = "items";
+import {
+  arrayFilters,
+  costFilters,
+  filter,
+  floatFilters,
+  stringFilters,
+} from "$graphql/filters.ts";
 
 /*
  * TypeScript Types
@@ -106,14 +110,18 @@ export type Item =
  */
 
 export default collection<Item>({
-  id: ID,
+  id: "items",
+  docType: "item",
   entries,
   typeDefs: Deno.readTextFileSync("./collections/items/typeDefs.graphql"),
+  filters: [
+    ...stringFilters<Item>("name"),
+    ...stringFilters<Item>("kind"),
+    ...floatFilters<Item>("weight"),
+    ...arrayFilters<Item, "tags", "String", "[String]">("tags", "String"),
+    ...costFilters(),
+  ],
   resolvers: {
-    Query: {
-      item: oneResolver<Item>(ID),
-      items: manyResolver<Item>(ID),
-    },
     Item: {
       __resolveType(item: Item): string {
         switch (item.kind) {

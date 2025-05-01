@@ -1,8 +1,5 @@
 import { collection } from "$db/collection.ts";
 import { BaseDocument } from "$collections/_common.ts";
-import { manyResolver, oneResolver } from "$graphql/resolvers.ts";
-
-export const ID = "damageTypes";
 
 /*
  * TypeScript Types
@@ -17,13 +14,8 @@ export interface DamageType extends BaseDocument {
  */
 
 export default collection<DamageType>({
-  id: ID,
-  resolvers: {
-    Query: {
-      damageType: oneResolver<DamageType>(ID),
-      damageTypes: manyResolver<DamageType>(ID),
-    },
-  },
+  id: "damageTypes",
+  docType: "damageType",
   typeDefs: `#graphql
     type DamageType {
       id: String!

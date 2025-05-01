@@ -1,9 +1,6 @@
 import { collection } from "$db/collection.ts";
 import { BaseDocument, Source } from "$collections/_common.ts";
-import { manyResolver, oneResolver } from "$graphql/resolvers.ts";
 import { entries } from "$data/weaponMasteries/entries.ts";
-
-export const ID = "weaponMasteries";
 
 /*
  * TypeScript Types
@@ -19,7 +16,8 @@ export interface WeaponMastery extends BaseDocument {
  */
 
 export default collection<WeaponMastery>({
-  id: ID,
+  id: "weaponMasteries",
+  docType: "weaponMastery",
   entries,
   typeDefs: `#graphql
     type WeaponMastery {
@@ -34,10 +32,4 @@ export default collection<WeaponMastery>({
       weaponMastery(id: String!): WeaponMastery
     }
   `,
-  resolvers: {
-    Query: {
-      weaponMastery: oneResolver<WeaponMastery>(ID),
-      weaponMasteries: manyResolver<WeaponMastery>(ID),
-    },
-  },
 });

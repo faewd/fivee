@@ -6351,7 +6351,7 @@ export const phbEntries: Entry<Spell>[] = [
       You gain the service of a familiar, a spirit that takes an animal form you choose: %{ref
       monsters bat}, %{ref monsters cat}, %{ref monsters crab}, %{ref monsters frog} (toad), %{ref
       monsters hawk}, %{ref monsters lizard}, %{ref monsters octopus}, %{ref monsters owl}, %{ref
-      monsters poisonous snake}, fish (%{ref monsters quipper}), %{ref monsters rat}, %{ref monsters
+      monsters poisonousSnake}, fish (%{ref monsters quipper}), %{ref monsters rat}, %{ref monsters
       raven}, %{ref monsters seaHorse}, %{ref monsters spider}, or %{ref monsters weasel}.
       Appearing in an unoccupied space within range, the familiar has the statistics of the chosen
       form, though it is a celestial, fey, or fiend (your choice) instead of a beast.
@@ -16599,7 +16599,7 @@ export const phbEntries: Entry<Spell>[] = [
       when it appears, the creature is pushed to one side of the wall (your choice which side).
 
       Nothing can physically pass through the wall. It is immune to all damage and can't be
-      dispelled by %{ref spells dispelMagic}. A %{ref spellsDisintegrate} spell destroys the wall
+      dispelled by %{ref spells dispelMagic}. A %{ref spells disintegrate} spell destroys the wall
       instantly, however. The wall also extends into the Ethereal Plane, blocking ethereal travel
       through the wall.
     `,
