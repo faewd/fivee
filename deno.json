@@ -1,11 +1,12 @@
 {
   "tasks": {
-    "start": "deno run --unstable-kv -RENS --allow-run main.ts",
-    "dev": "deno run --watch --unstable-kv -RENS --allow-run main.ts",
-    "build": "deno task db:init && deno task docs:build",
-    "db:init": "deno run --unstable-kv -RENS database/init.ts",
+    "start": "deno run --unstable-kv -WRENS --allow-run main.ts",
+    "dev": "deno run --watch --unstable-kv -WRENS --allow-run main.ts",
+    "build": "deno task chrome:install && deno task db:init && deno task docs:build",
+    "db:init": "deno run --unstable-kv -WRENS database/init.ts",
     "docs:serve": "cd docs && npx docusaurus start",
-    "docs:build": "cd docs && yarn && yarn build"
+    "docs:build": "cd docs && yarn && yarn build",
+    "chrome:install": "npx puppeteer browsers install chrome"
   },
   "imports": {
     "std/": "https://deno.land/std@0.207.0/",
@@ -16,6 +17,7 @@
     "$db/": "./database/",
     "$graphql/": "./api/graphql/",
     "$exprs/": "./expressions/",
-    "$snippets/": "./api/snippets/"
+    "$snippets/": "./api/snippets/",
+    "$embed/": "./api/embed/"
   }
 }

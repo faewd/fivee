@@ -3,10 +3,11 @@ import db from "$db/database.ts";
 import { Spell } from "$collections/spells/collection.ts";
 import { render, RenderConfig } from "$snippets/renderer.ts";
 import { pluralize } from "$snippets/helpers.ts";
+import puppeteer from "npm:puppeteer";
 
 const router = express.Router();
 
-router.get("/:spellId", async (req: express.Request, res: express.Response) => {
+async function renderSpellCard(req: express.Request, res: express.Response): Promise<string | null> {
   const spellId = req.params.spellId;
   const cssMode = req.query.cssMode as RenderConfig["cssMode"] | undefined;
   const theme = req.query.theme as RenderConfig["theme"] | undefined;
@@ -17,7 +18,7 @@ router.get("/:spellId", async (req: express.Request, res: express.Response) => {
   if (data === null) {
     res.status(404);
     res.send(`Couldn't find a spell with the id '${spellId}'.`);
-    return;
+    return null;
   }
 
   // deno-lint-ignore no-explicit-any
@@ -74,10 +75,34 @@ router.get("/:spellId", async (req: express.Request, res: express.Response) => {
 
   spell.materials = data.materials?.desc;
 
+  return render("spellCard", { spell }, { cssMode, theme, expressions })
+}
+
+router.get("/:spellId.png", async (req: express.Request, res: express.Response) => {
+  const html = await renderSpellCard(req, res)
+  if (html === null) return;
+  const browser = await puppeteer.launch()
+  const page = await browser.newPage()
+  await page.setContent(html)
+  const article = await page.$("article")
+  if (article === null) {
+    res.status(500)
+    res.send("Something went wrong while rendering the snippet.")
+    return ;
+  }
+  const imageBuffer = await article.screenshot()
+  await page.close()
+  await browser.close()
+  
+  res.set("Content-Type", "image/png")
+  res.send(imageBuffer)
+})
+
+router.get("/:spellId", async (req: express.Request, res: express.Response) => {
+  const html = await renderSpellCard(req, res)
+  if (html === null) return;
   res.status(200);
-  res.send(
-    await render("spellCard", { spell }, { cssMode, theme, expressions }),
-  );
+  res.send(html);
 });
 
 export default router;

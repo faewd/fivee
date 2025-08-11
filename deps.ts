@@ -2,3 +2,5 @@
 export { default as express } from "npm:express@4.18.2";
 
 export * as hex from "std/encoding/hex.ts";
+
+export { default as satori } from "npm:puppeteer"
