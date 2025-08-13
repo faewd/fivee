@@ -86,8 +86,7 @@ router.get("/:spellId.png", async (req: express.Request, res: express.Response) 
   })
   const page = await browser.newPage()
   const baseUrl = `http://localhost:${Deno.env.get("PORT")}`
-  const url = `${baseUrl}/snippets/spell-card/${req.params.spellId}`
-  console.log(url)
+  const url = `${baseUrl}/${req.originalUrl.replace(".png", "")}`
   await page.goto(url)
   const article = await page.$("article")
   if (article === null) {
