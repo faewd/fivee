@@ -19,7 +19,7 @@ export class Database {
   constructor() {}
 
   public async init() {
-    this.kv = await Deno.openKv();
+    this.kv = await Deno.openKv(Deno.env.get("DENO_KV_URL"));
   }
 
   public async list<T extends Document>(

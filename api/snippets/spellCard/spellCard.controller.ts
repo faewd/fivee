@@ -81,9 +81,14 @@ async function renderSpellCard(req: express.Request, res: express.Response): Pro
 router.get("/:spellId.png", async (req: express.Request, res: express.Response) => {
   const html = await renderSpellCard(req, res)
   if (html === null) return;
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({
+    args: ["--no-sandbox"]
+  })
   const page = await browser.newPage()
-  await page.setContent(html)
+  const baseUrl = `http://localhost:${Deno.env.get("PORT")}`
+  const url = `${baseUrl}/snippets/spell-card/${req.params.spellId}`
+  console.log(url)
+  await page.goto(url)
   const article = await page.$("article")
   if (article === null) {
     res.status(500)

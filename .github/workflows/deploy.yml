@@ -1,45 +1,53 @@
 name: Deploy
+
 on:
+  workflow_dispatch:
   push:
-    branches: main
+    branches:
+      - "main"
+    tags:
+      - "v*"
   pull_request:
-    branches: main
+    branches:
+      - "main"
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  deploy:
-    name: Deploy
+  publish-image:
+    name: Build & Publish image
     runs-on: ubuntu-latest
-
     permissions:
-      id-token: write # Needed for auth with Deno Deploy
-      contents: read # Needed to clone the repository
-
+      packages: write
+      contents: read
+      attestations: write
+      id-token: write
     steps:
-      - name: Clone repository
-        uses: actions/checkout@v3
-
-      - name: Install Deno
-        uses: denoland/setup-deno@v2
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Extract Metadata for Docker
+        id: meta
+        uses: docker/metadata-action@v5
         with:
-          deno-version: v2.x
-
-      - name: Install Node.js
-        uses: actions/setup-node@v3
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
         with:
-          node-version: 22.x
-
-      - name: Install Yarn
-        run: "npm i -g yarn"
-
-      - name: Build step
-        run: "deno task build"
-        env:
-          DENO_KV_URL: ${{ secrets.DENO_KV_URL }}
-          DENO_KV_ACCESS_TOKEN: ${{ secrets.DENO_KV_ACCESS_TOKEN }}
-
-      - name: Upload to Deno Deploy
-        uses: denoland/deployctl@v1
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and Push
+        uses: docker/build-push-action@v6
         with:
-          project: "faewd-fivee"
-          entrypoint: "main.ts"
-          root: "."
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+      - name: Generate Artifact Attestation
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true

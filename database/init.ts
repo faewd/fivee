@@ -8,12 +8,12 @@ import chalk from "npm:chalk";
 
 const DENO_KV_URL = Deno.env.get("DENO_KV_URL");
 
-if (DENO_KV_URL && !Deno.env.get("DENO_KV_ACCESS_TOKEN")) {
-  console.log(
-    "You must specify a DENO_KV_ACCESS_TOKEN environment variable when using a remote Deno KV.",
-  );
-  Deno.exit(1);
-}
+// if (DENO_KV_URL && !Deno.env.get("DENO_KV_ACCESS_TOKEN")) {
+//   console.log(
+//     "You must specify a DENO_KV_ACCESS_TOKEN environment variable when using a remote Deno KV.",
+//   );
+//   Deno.exit(1);
+// }
 
 // Connect to the database
 console.log(`Establishing connection to Deno KV...`);

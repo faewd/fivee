@@ -2,7 +2,7 @@
   "tasks": {
     "start": "deno run --unstable-kv -WRENS --allow-run main.ts",
     "dev": "deno run --watch --unstable-kv -WRENS --allow-run main.ts",
-    "build": "deno task chrome:install && deno task db:init && deno task docs:build",
+    "build": "deno task chrome:install && deno task docs:build",
     "db:init": "deno run --unstable-kv -WRENS database/init.ts",
     "docs:serve": "cd docs && npx docusaurus start",
     "docs:build": "cd docs && yarn && yarn build",
