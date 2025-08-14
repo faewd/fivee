@@ -19,11 +19,6 @@ export default collection<SourceBook>({
       id: String!
       name: String!
     }
-
-    extend type Query {
-      sourceBooks: [SourceBook]
-      sourceBook(id: String!): SourceBook
-    }
   `,
   entries: [
     {

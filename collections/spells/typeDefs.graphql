@@ -80,8 +80,3 @@ type Spell {
   attack: ISpellAttack,
   source: Source!
 }
-
-extend type Query {
-  spells(expressions: Boolean): [Spell]
-  spell(id: String!, expressions: Boolean): Spell
-}

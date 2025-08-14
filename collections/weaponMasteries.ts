@@ -26,10 +26,5 @@ export default collection<WeaponMastery>({
       desc: String!
       source: Source!
     }
-
-    extend type Query {
-      weaponMasteries: [WeaponMastery]
-      weaponMastery(id: String!): WeaponMastery
-    }
   `,
 });

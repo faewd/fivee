@@ -22,11 +22,6 @@ export default collection<DamageType>({
       name: String!
       desc: String!
     }
-
-    extend type Query {
-      damageTypes: [DamageType]
-      damageType(id: String!): DamageType
-    }
   `,
   entries: [
     {

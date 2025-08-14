@@ -28,11 +28,6 @@ export default collection<Skill>({
       baseAbility: AbilityScore!
       source: Source!
     }
-
-    extend type Query {
-      skills: [Skill]
-      skill(id: String!): Skill
-    }
   `,
   entries: [
     {

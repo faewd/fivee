@@ -26,10 +26,5 @@ export default collection<MagicSchool>({
       desc: String!
       source: Source!
     }
-
-    extend type Query {
-      magicSchools: [MagicSchool]
-      magicSchool(id: String!): MagicSchool
-    }
   `,
 });

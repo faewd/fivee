@@ -6,7 +6,6 @@ import { WeaponMastery } from "$collections/weaponMasteries.ts";
 import {
   arrayFilters,
   costFilters,
-  filter,
   floatFilters,
   stringFilters,
 } from "$graphql/filters.ts";
