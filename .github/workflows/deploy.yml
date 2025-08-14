@@ -18,13 +18,13 @@ env:
 jobs:
   publish-image:
     name: Build & Publish image
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
           platform:
             - amd64
             - arm64
+    runs-on: ${{ (matrix.platform == 'arm64' && 'lunchbot') || 'ubuntu-latest' }}
     permissions:
       packages: write
       contents: read
