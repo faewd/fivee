@@ -3,6 +3,7 @@
     "deno.json",
     "main.ts",
     "deps.ts",
+    "config.ts",
     "api",
     "collections",
     "database",

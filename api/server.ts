@@ -5,9 +5,7 @@ import cors from "npm:cors";
 import boxen from "npm:boxen";
 import chalk from "npm:chalk";
 import morgan from "npm:morgan";
-
-const PORT = Deno.env.get("PORT") ?? 8000;
-const BASE_URL = Deno.env.get("BASE_URL") ?? `http://localhost:${PORT}`;
+import { BASE_URL, PORT } from "$config";
 
 const links = boxen(
   Object.entries({

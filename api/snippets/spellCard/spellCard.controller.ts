@@ -4,6 +4,7 @@ import { Spell } from "$collections/spells/collection.ts";
 import { render, RenderConfig } from "$snippets/renderer.ts";
 import { pluralize } from "$snippets/helpers.ts";
 import puppeteer from "npm:puppeteer";
+import { PORT } from "$config";
 
 const router = express.Router();
 
@@ -85,8 +86,8 @@ router.get("/:spellId.png", async (req: express.Request, res: express.Response) 
     args: ["--no-sandbox"]
   })
   const page = await browser.newPage()
-  const baseUrl = `http://localhost:${Deno.env.get("PORT")}`
-  const url = `${baseUrl}/${req.originalUrl.replace(".png", "")}`
+  const baseUrl = `http://localhost:${PORT}`
+  const url = `${baseUrl}${req.originalUrl.replace(".png", "")}`
   await page.goto(url)
   const article = await page.$("article")
   if (article === null) {
