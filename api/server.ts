@@ -50,6 +50,13 @@ async function start() {
     }),
   );
 
+  
+  app.use("/health", (_: express.Request, res: express.Response) => {
+    res.json({
+      health: "OK"
+    })
+  })
+
   app.use("/graphql", cors(), express.json(), await graphqlMiddleware());
 
   app.use("/snippets", logger, cors(), snippetsRouter);

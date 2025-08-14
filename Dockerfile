@@ -35,7 +35,7 @@ RUN deno task db:init
 
 HEALTHCHECK --interval=30s --timeout=3s \
             --start-period=10s --retries=3 \
-            CMD deno eval "try { await fetch('http://localhost:${PORT}'); } catch { Deno.exit(1); }"
+            CMD deno eval "try { await fetch('http://localhost:${PORT}/health'); } catch { Deno.exit(1); }"
 
 
 EXPOSE ${PORT}
