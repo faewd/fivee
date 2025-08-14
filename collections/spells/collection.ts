@@ -4,6 +4,7 @@ import { MagicSchool } from "$collections/magicSchools.ts";
 import { AbilityScore } from "$collections/abilityScores.ts";
 import { DamageType } from "$collections/damageTypes.ts";
 import { entries } from "$data/spells/entries.ts";
+import { arrayFilters, intFilters, stringFilters } from "$graphql/filters.ts";
 
 /*
  * TypeScript Types
@@ -126,6 +127,11 @@ export default collection<Spell>({
   docType: "spell",
   entries,
   typeDefs: Deno.readTextFileSync("./collections/spells/typeDefs.graphql"),
+  filters: [
+    ...stringFilters<Spell>("name"),
+    ...intFilters<Spell>("level"),
+    ...arrayFilters<Spell, "components", "String", "[String]">("components", "String"),
+  ],
   resolvers: {
     IDamageProgression: {
       __resolveType(prog: DamageProgression): string {
